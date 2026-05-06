@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -72,14 +73,30 @@ class _HomePageState extends State<HomePage> {
         paymentIntentData = null;
       });
 
+      await firestore
+          .collection('data')
+          .doc('Transaction completed')
+          .set({
+        'status': 'success',
+        'amount': '20',
+        'currency': 'USD',
+        'time': DateTime.now(),
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Payment Successful'),
         ),
       );
+
     } on StripeException catch (e) {
       print(e);
-
+      await firestore
+          .collection('data')
+          .doc('Transaction canceled')
+          .set({
+        'status': 'cancelled',
+        'time': DateTime.now(),
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Payment Cancelled'),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:payment_app/home_page.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Stripe.publishableKey = 'pk_test_51TU5pMCMsoXe9YtNxVqnTh4jXK7j9pv4zOzFYtfgMP6JiHqvHrB88WgOOBWtO8yZynhxmqqzoWFJIU6me0JblBQR00qJtjCWKv';
 
   runApp(const MyApp());
