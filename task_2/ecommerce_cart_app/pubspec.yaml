@@ -37,6 +37,8 @@ dependencies:
   provider:
   flutter_stripe:
   http:
+  stripe:
+
 
 dev_dependencies:
   flutter_test:
