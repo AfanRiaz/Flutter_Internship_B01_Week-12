@@ -7,7 +7,7 @@ void main() {
       home: Scaffold(
         body: Center(
           child: Text(
-            "APP IS WORKING",
+            "APP IS not WORKING",
             style: TextStyle(fontSize: 20),
           ),
         ),
